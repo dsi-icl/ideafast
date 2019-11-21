@@ -22,7 +22,7 @@
         "test": "jest --color --passWithNoTests"
     },
     "dependencies": {
-        "mcl-wasm": "^0.3.7"
+        "mcl-wasm": "0.3.7"
     },
     "devDependencies": {
         "@babel/core": "7.7.2",
