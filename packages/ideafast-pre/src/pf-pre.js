@@ -1,7 +1,7 @@
-const mcl = require("mcl-wasm");
-const crypto = require("crypto-browserify");
+import mcl from './mcl';
+import crypto from 'crypto-browserify';
 
-class PRE {
+export class PRE {
   /**
    * Init by L0,L1 and curve
    * @param {number} L0
@@ -212,7 +212,7 @@ class PRE {
     const F = c1.slice(2 * PRE.L_G, 2 * PRE.L_G + PRE.L);
     const s = PRE.bufToFr(c1.slice(2 * PRE.L_G + PRE.L));
 
-    const {status} = PRE.pubVerify([pk1, pk2], [D, E, F, s]);
+    const { status } = PRE.pubVerify([pk1, pk2], [D, E, F, s]);
     if (status === PRE.STATUS.ERR_PUB_VERIFY)
       return [status];
     const E1 = mcl.mul(E, rk); //in G
@@ -236,7 +236,7 @@ class PRE {
     const E = PRE.bufToG(c1.slice(PRE.L_G, 2 * PRE.L_G));
     const F = c1.slice(2 * PRE.L_G, 2 * PRE.L_G + PRE.L);
     const s = PRE.bufToFr(c1.slice(2 * PRE.L_G + PRE.L));
-    const {status, h4pk2, base} = PRE.pubVerify([pk1, pk2], [D, E, F, s]);
+    const { status, h4pk2, base } = PRE.pubVerify([pk1, pk2], [D, E, F, s]);
     if (status === PRE.STATUS.ERR_PUB_VERIFY)
       return [status];
     const index = mcl.inv(mcl.add(mcl.mul(sk1, h4pk2), sk2));
@@ -492,7 +492,7 @@ class PRE {
 
 }
 
-class PREClient {
+export class PREClient {
   constructor() {
     this.pk = null;
     this.sk = null;
@@ -523,7 +523,7 @@ class PREClient {
 
   }
 
-  enc(M, {to = this.pk, transformable = true} = {}) {
+  enc(M, { to = this.pk, transformable = true } = {}) {
     to = PRE.parsePk(to);
     if (transformable)
       return PRE.enc1(M, to);
@@ -550,11 +550,15 @@ class PREClient {
 
 }
 
-class PREProxy {
+export class PREProxy {
   static reEnc(C1, reKey, owner) {
     owner = PRE.parsePk(owner);
     return PRE.reEnc(reKey, C1, owner)
   }
 }
 
-module.exports = {PRE, PREClient, PREProxy};
+export default {
+  PRE,
+  PREClient,
+  PREProxy
+};
