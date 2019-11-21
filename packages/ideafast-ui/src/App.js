@@ -67,7 +67,7 @@ const App = () => {
                     const c3 = DataOwner.enc(M, { transformable: false });
                     const [valid4, d3] = DataOwner.dec(c3);
                     print("DataOwner Decrypts [non-transformable]:", valid4, "Same with plaintext?:", d3.equals(M));
-                    const [valid5, c4] = PREProxy.reEnc(c3, reKey, pkDO);
+                    const [valid5 /*, c4*/] = PREProxy.reEnc(c3, reKey, pkDO);
                     print("ReEncrypt: Should be error:", valid5); // cannot reEnc non-transformable ciphertext
                 } catch (error) {
                     print('Failed to initialize PRE', error);
