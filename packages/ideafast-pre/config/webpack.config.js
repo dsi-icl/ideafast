@@ -1,27 +1,27 @@
 const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
 module.exports = {
     mode: process.env.NODE_ENV || 'production',
     devtool: process.env.NODE_ENV === 'development' ? 'inline-source-map' : 'source-map',
-    entry: (process.env.NODE_ENV === 'development' ?
-        {
-            core: ['webpack/hot/poll?1000', './src/application']
-        } : {
-            core: ['./src/application']
-        }
-    ),
+    entry: {
+        core: ['./src/pf-pre']
+    },
     watch: process.env.NODE_ENV === 'development' ? true : false,
     target: 'web',
-    externals: [
-        // nodeExternals({
-        //     whitelist: ['mcl-wasm'].concat(process.env.NODE_ENV === 'development' ? ['webpack/hot/poll?1000'] : [])
-        // }),
-        'perf_hooks'
-    ],
+    resolve: {
+        extensions: ['.js', '.json', '.wasm']
+    },
     module: {
+        noParse: /mcl-wasm\/test\.js/,
         rules: [
+            {
+                test: /\.wasm$/,
+                type: 'javascript/auto',
+                use: {
+                    loader: 'arraybuffer-loader'
+                }
+            },
             {
                 test: /\.js?$/,
                 use: {
@@ -35,10 +35,9 @@ module.exports = {
         ]
     },
     plugins: (process.env.NODE_ENV === 'development' ? [
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.NamedModulesPlugin()
     ] : []).concat([
-        new webpack.IgnorePlugin(new RegExp('^(fs)$')),
+        new webpack.IgnorePlugin(new RegExp('^(fs|perf_hooks)$')),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
@@ -47,11 +46,12 @@ module.exports = {
         }),
     ]),
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, '../dist'),
         filename: 'index.js',
-        library: process.env.NODE_ENV === 'development' ? undefined : 'ideafast-pre',
-        libraryTarget: process.env.NODE_ENV === 'development' ? undefined : 'umd',
-        umdNamedDefine: process.env.NODE_ENV === 'development' ? undefined : true
+        library: 'ideafast-pre',
+        libraryTarget: 'umd',
+        umdNamedDefine: true,
+        webassemblyModuleFilename: "[hash].wasm"
     },
     performance: {
         maxEntrypointSize: 512000,

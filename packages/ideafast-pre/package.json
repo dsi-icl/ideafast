@@ -26,6 +26,7 @@
         "mcl-wasm": "^0.3.7"
     },
     "devDependencies": {
+        "arraybuffer-loader": "1.0.8",
         "babel-loader": "8.0.6",
         "cross-env": "6.0.3",
         "jest": "24.9.0",
