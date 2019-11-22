@@ -70,7 +70,7 @@ const App = () => {
                     const [valid5 /*, c4*/] = PREProxy.reEnc(c3, reKey, pkDO);
                     print("ReEncrypt: Should be error:", valid5); // cannot reEnc non-transformable ciphertext
                 } catch (error) {
-                    print('Failed to initialize PRE', error);
+                    print('A problem occured', error);
                 };
             })();
 

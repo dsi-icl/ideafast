@@ -26,7 +26,10 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        babelrc: false
+                        babelrc: false,
+                        presets: [
+                            '@babel/env'
+                        ]
                     }
                 },
                 exclude: /node_modules/
@@ -34,6 +37,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.NormalModuleReplacementPlugin(/mcl-wasm[\\\/]test\.js/, path.join(__dirname, '../src/noop.js')),
         new webpack.IgnorePlugin(new RegExp('^(fs|perf_hooks)$')),
         new webpack.DefinePlugin({
             'process.env': {
@@ -50,6 +54,7 @@ module.exports = {
         webassemblyModuleFilename: "[hash].wasm"
     },
     optimization: {
+        usedExports: true,
         namedModules: true,
         noEmitOnErrors: true,
         concatenateModules: true
