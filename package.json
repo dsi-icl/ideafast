@@ -26,7 +26,7 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "build": "lerna run build",
+        "build": "lerna run build --stream",
         "lint": "echo Put your favorite linter here.",
         "publish": "lerna run publish --scope idea-pre",
         "postinstall": "npm run bootstrap",

@@ -13,7 +13,6 @@ module.exports = {
         extensions: ['.js', '.json', '.wasm']
     },
     module: {
-        noParse: /mcl-wasm\/test\.js/,
         rules: [
             {
                 test: /\.wasm$/,
@@ -34,17 +33,14 @@ module.exports = {
             }
         ]
     },
-    plugins: (process.env.NODE_ENV === 'development' ? [
-        new webpack.NamedModulesPlugin()
-    ] : []).concat([
+    plugins: [
         new webpack.IgnorePlugin(new RegExp('^(fs|perf_hooks)$')),
-        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 'BUILD_TARGET': JSON.stringify('browser')
             }
         }),
-    ]),
+    ],
     output: {
         path: path.join(__dirname, '../dist'),
         filename: 'index.js',
@@ -53,8 +49,13 @@ module.exports = {
         umdNamedDefine: true,
         webassemblyModuleFilename: "[hash].wasm"
     },
+    optimization: {
+        namedModules: true,
+        noEmitOnErrors: true,
+        concatenateModules: true
+    },
     performance: {
-        maxEntrypointSize: 512000,
-        maxAssetSize: 512000
+        maxEntrypointSize: 2048000,
+        maxAssetSize: 2048000
     }
 };
