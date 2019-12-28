@@ -27,7 +27,7 @@
         "mcl-wasm": "0.3.7"
     },
     "devDependencies": {
-        "@babel/core": "7.7.5",
+        "@babel/core": "7.7.7",
         "@babel/preset-env": "7.7.7",
         "arraybuffer-loader": "1.0.8",
         "babel-loader": "8.0.6",
