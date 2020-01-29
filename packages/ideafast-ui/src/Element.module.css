@@ -16,6 +16,16 @@
     height: 2rem;
 }
 
+.title button {
+    height: 1.5rem;
+    margin-bottom: 0.2rem;
+    background-color: #610b0b;
+}
+
+.title button:hover {
+    background-color: #7c1c29;
+}
+
 .section {
     display: inline-block;
     font-size: 0.9rem;

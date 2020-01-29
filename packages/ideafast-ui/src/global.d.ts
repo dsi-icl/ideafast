@@ -41,3 +41,7 @@ type Party = {
     id: number;
     partyClient: PREClient;
 }
+
+type Proxy = {
+    id: number;
+}
