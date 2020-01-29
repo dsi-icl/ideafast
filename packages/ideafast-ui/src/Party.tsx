@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { PREProxy } from 'ideafast-pre';
 import style from './Element.module.css';
 
 type PartyProps = {
