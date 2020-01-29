@@ -39,6 +39,9 @@ const Party: React.FC<PartyProps> = ({ party, l0, onClose }) => {
         } catch (e) {
             setTransformableSecret(`Could not compute transformable: ${e?.message}`);
         }
+    }, [ownMessage, l0, partyClient])
+    
+    useEffect(() => {
 
         try {
             if (receipientPk === '')
@@ -48,7 +51,7 @@ const Party: React.FC<PartyProps> = ({ party, l0, onClose }) => {
         } catch (e) {
             setReEncryptionKey(`Could not compute re-encryption key: ${e?.message}`);
         }
-    }, [receipientPk, ownMessage, l0, partyClient, ownPk])
+    }, [receipientPk, partyClient])
 
     const handleOwnMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const message = event.target.value;
