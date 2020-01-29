@@ -219,26 +219,26 @@ export class PRE {
         return [status, Buffer.concat([PRE.toBuf(E1), F, reKey.slice(PRE.L_Fr)])]
 
     }
-    
-    
+
+
     /**
 		 *
 		 * @param reKey
 		 * @param {Buffer} c1 - length C1_LEN
 		 * @returns reEncryption ciphertext (tranformable secret)
 		 */
-		static reEnc2(reKey, c1) {
-		  if (reKey.length !== PRE.REKEY_LEN || c1.length !== PRE.C1_LEN)
-		    return [PRE.STATUS.ERR_LENGTH];
-		  const rk = PRE.bufToFr(reKey.slice(0, PRE.L_Fr));
-		  const D = PRE.bufToG(c1.slice(0, PRE.L_G));
-		  const E = PRE.bufToG(c1.slice(PRE.L_G, 2 * PRE.L_G));
-		  const F = c1.slice(2 * PRE.L_G, 2 * PRE.L_G + PRE.L);
-		  const s = PRE.bufToFr(c1.slice(2 * PRE.L_G + PRE.L));
-		  
-		  const E1 = mcl.mul(E, rk); //in G
-		  return Buffer.concat([PRE.toBuf(E1), F, reKey.slice(PRE.L_Fr)])
-		}
+    static reEnc2(reKey, c1) {
+        if (reKey.length !== PRE.REKEY_LEN || c1.length !== PRE.C1_LEN)
+            return [PRE.STATUS.ERR_LENGTH];
+        const rk = PRE.bufToFr(reKey.slice(0, PRE.L_Fr));
+        const D = PRE.bufToG(c1.slice(0, PRE.L_G));
+        const E = PRE.bufToG(c1.slice(PRE.L_G, 2 * PRE.L_G));
+        const F = c1.slice(2 * PRE.L_G, 2 * PRE.L_G + PRE.L);
+        const s = PRE.bufToFr(c1.slice(2 * PRE.L_G + PRE.L));
+
+        const E1 = mcl.mul(E, rk); //in G
+        return Buffer.concat([PRE.toBuf(E1), F, reKey.slice(PRE.L_Fr)])
+    }
 
     /**
      * dec1 on c1
@@ -575,9 +575,9 @@ export class PREProxy {
         owner = PRE.parsePk(owner);
         return PRE.reEnc(reKey, C1, owner)
     }
-    
+
     static reEnc2(C1, reKey) {
-        return PRE.reEnc(reKey, C1)
+        return PRE.reEnc2(reKey, C1)
     }
 }
 

@@ -24,6 +24,7 @@ declare module 'ideafast-pre' {
 
     declare var PREProxy: {
         reEnc: (buffer: Uint8Array, reKey: Uint8Array, pk: Uint8Array) => [any, Buffer]
+        reEnc2: (buffer: Uint8Array, reKey: Uint8Array) => Buffer
     };
 
     type CurveList = {
