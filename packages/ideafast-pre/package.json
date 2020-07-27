@@ -34,7 +34,7 @@
         "babel-jest": "26.0.1",
         "cross-env": "7.0.2",
         "jest": "26.1.0",
-        "webpack": "4.43.0",
+        "webpack": "4.44.0",
         "webpack-nano": "1.0.0",
         "webpack-node-externals": "2.5.0"
     },
