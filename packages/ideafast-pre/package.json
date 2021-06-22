@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "crypto-browserify": "3.12.0",
-        "mcl-wasm": "0.3.7"
+        "mcl-wasm": "0.7.8"
     },
     "devDependencies": {
         "@babel/core": "7.12.3",
